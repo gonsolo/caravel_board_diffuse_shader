@@ -1,13 +1,6 @@
 
-#TOOLCHAIN_PATH=/usr/bin/
-TOOLCHAIN_PATH=/usr/local/bin/
-#TOOLCHAIN_PATH=/opt/riscv32imc/bin/
-# TOOLCHAIN_PATH=/ef/apps/bin/
-
-# Set the prefix for `riscvXX-unknown-elf-*`
-# On installations using `multilib`, this will be `riscv64` even for compiling to 32-bit targets
-TOOLCHAIN_PREFIX=riscv64-unknown-elf
-#TOOLCHAIN_PREFIX=riscv32
+TOOLCHAIN_PATH=/home/gonsolo/Downloads/riscv32-elf-ubuntu-22.04-gcc-nightly-2024.09.03-nightly/riscv/bin/
+TOOLCHAIN_PREFIX=riscv32-unknown-elf
 
 # ---- Test patterns for project raven ----
 
@@ -18,8 +11,6 @@ PATTERN = blink
 hex:  ${PATTERN:=.hex}
 
 %.elf: %.c ../sections.lds ../crt0_vex.S
-	#$(TOOLCHAIN_PATH)riscv32-unknown-elf-gcc -O0 -march=rv32i_zicsr -Wl,-Bstatic,-T,../sections.lds,--strip-debug -ffreestanding -nostdlib -o $@ ../start.s ../print_io.c $<
-	#$(TOOLCHAIN_PATH)$(TOOLCHAIN_PREFIX)-gcc -I../ -I../generated/ -O0 -mabi=ilp32 -march=rv32i_zicsr -D__vexriscv__ -Wl,-Bstatic,-T,../sections.lds,--strip-debug -ffreestanding -nostdlib -o $@ ../crt0_vex.S ../isr.c ../stub.c $<
 	$(TOOLCHAIN_PATH)$(TOOLCHAIN_PREFIX)-gcc -I../ -I../generated/ -O0 -mabi=ilp32 -march=rv32i_zicsr -D__vexriscv__ -Wl,-Bstatic,-T,../sections.lds,--strip-debug -ffreestanding -nostdlib -o $@ ../crt0_vex.S ../isr.c $<
 	${TOOLCHAIN_PATH}$(TOOLCHAIN_PREFIX)-objdump -D blink.elf > blink.lst
 
@@ -43,7 +34,7 @@ flash2: blink.hex
 # ---- Clean ----
 
 clean:
-	rm -f *.elf *.hex *.bin *.vvp *.vcd
+	rm -f *.elf *.hex *.bin *.vvp *.vcd blink.lst blink.hexe
 
 .PHONY: clean hex all flash
 

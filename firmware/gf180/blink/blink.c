@@ -140,14 +140,16 @@ void main()
         reg_mprj_datal = 0xaaaaaaaa;
 
 //		delay(50000);
-		delay(2000000);
+		//delay(2000000);
+		delay(4000000);
 
         reg_gpio_out = 0;  // ON
         reg_mprj_datah = 0x00000015;
         reg_mprj_datal = 0x55555555;
 
 //		delay(50000);
-		delay(2000000);
+		//delay(2000000);
+		delay(4000000);
 
     }
 
