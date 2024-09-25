@@ -45,7 +45,7 @@ flash2: pepe.hex
 # ---- Clean ----
 
 clean:
-	rm -f *.elf *.hex *.bin *.vvp *.vcd pepe.lst pepe.hexe
+	rm -f *.elf *.hex *.bin *.vvp *.vcd pepe.lst pepe.hexe pepe.plist compile_commands.json
 
 .PHONY: clean hex all flash
 
